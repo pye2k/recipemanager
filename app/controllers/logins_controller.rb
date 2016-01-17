@@ -1,0 +1,24 @@
+class LoginsController < ApplicationController
+
+  def new
+  end
+
+  def create
+    chef = Chef.find_by(email: params[:email])
+    if chef && chef.authenticate(params[:password])
+      session[:chef_id] = chef.id   # store the chef id in the cookie
+      flash[:success] = "You are now logged in"
+      redirect_to recipes_path
+    else
+      flash.now[:danger] = "Your email address or password do not match"
+      render 'new'
+    end
+  end
+
+  def destroy
+    session[:chef_id] = nil
+    flash[:success] = "You have logged out"
+    redirect_to root_path
+  end
+
+end

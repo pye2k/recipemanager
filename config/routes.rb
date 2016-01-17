@@ -26,6 +26,10 @@ Rails.application.routes.draw do
 
   get '/register', to: 'chefs#new'
 
+  get '/login', to: 'logins#new'
+  post '/login', to: 'logins#create'
+  get '/logout', to: 'logins#destroy'
+
 
   # Example resource route with options:
   #   resources :products do
