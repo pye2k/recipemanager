@@ -12,6 +12,7 @@ class ChefsController < ApplicationController
     @chef = Chef.create(chef_params)
     if @chef.save
       flash[:success] = 'Your credentials have been created successfully'
+      session[:chef_id] = @chef.id
       redirect_to recipes_path
     else
       render 'new'
