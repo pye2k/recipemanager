@@ -2,7 +2,7 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :like]
   before_action :require_user, except: [:show, :index, :like]
   before_action :require_user_for_like, only: [:like]
-  before_action :require_same_user, only: [:edit, :update]
+  before_action :require_same_user_or_admin, only: [:edit, :update]
 
   def index
     @recipes = Recipe.paginate(page: params[:page], per_page: 4)
@@ -61,8 +61,8 @@ class RecipesController < ApplicationController
       @recipe = Recipe.find(params[:id])
     end
 
-    def require_same_user
-      if current_user != @recipe.chef
+    def require_same_user_or_admin
+      if current_user != @recipe.chef and !current_user.admin?
         flash[:danger] = "You can only update receipes that you own"
         redirect_to recipes_path
       end
