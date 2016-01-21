@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :like]
-  before_action :require_user, except: [:show, :index]
+  before_action :require_user, except: [:show, :index, :like]
+  before_action :require_user_for_like, only: [:like]
   before_action :require_same_user, only: [:edit, :update]
 
   def index
@@ -64,6 +65,13 @@ class RecipesController < ApplicationController
       if current_user != @recipe.chef
         flash[:danger] = "You can only update receipes that you own"
         redirect_to recipes_path
+      end
+    end
+
+    def require_user_for_like
+      if !logged_in?
+        flash[:danger] = "You must be logged in to perform that action"
+        redirect_to :back
       end
     end
 
