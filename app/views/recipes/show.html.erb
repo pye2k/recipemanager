@@ -13,7 +13,7 @@
       <% if logged_in? and (@recipe.chef == current_user || current_user.admin?) %>
         <%= link_to "Edit this recipe", edit_recipe_path(@recipe), class: "btn btn-success" %>
       <% end %>
-      <% if current_user.admin? %>
+      <% if logged_in? and current_user.admin? %>
         <%= link_to "Delete recipe", recipe_path(@recipe), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
       <% end %>
     </div>
