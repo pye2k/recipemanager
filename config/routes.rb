@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   resources :styles, only: [:new, :create, :show]
   resources :ingredients, only: [:new, :create, :show]
+  resources :reviews, only: [:new, :create, :show]
 
   # Example resource route with options:
   #   resources :products do
