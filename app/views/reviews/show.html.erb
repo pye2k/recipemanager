@@ -1,0 +1,23 @@
+<%= render "shared/page_title", title: "Review for #{@review.recipe.name}" %>
+
+<%= render "shared/errors", obj: @review %>
+
+<div class="row">
+  <div class="col-md-2 col-md-offset-2">
+    <section class="chef_info center">
+      <%= link_to gravatar_for(@review.chef, size: 100), chef_path(@review.chef) %>
+      <h5>Chef name: <%= @review.chef.chefname %></h5>
+    </section>
+  </div>
+
+  <div class="col-lg-6 well">
+    <h4><%= @review.title %></h4>
+    <p><%= @review.body %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2 col-md-offset-2 center">
+    <h5><%= link_to "Return to Recipe", recipe_path(@review.recipe), class: "btn btn-warning btn-small" %></h5>
+  </div>
+</div>
