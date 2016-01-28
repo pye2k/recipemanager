@@ -47,7 +47,8 @@
 <div class="row">
   <div class="col-md-8">
     <h3>Reviews</h3>
-    <% @recipe.reviews.each do |review| %>
+    <%= will_paginate @reviews %>
+    <% @reviews.each do |review| %>
       <div class="well">
         <p>
           <strong><%= link_to review.title, recipe_review_path(@recipe, review) %></strong><br/>
