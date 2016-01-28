@@ -23,6 +23,10 @@ class Recipe < ActiveRecord::Base
     self.likes.where(like: false).size
   end
 
+  def review_count
+    self.reviews.size
+  end
+
   private
 
     def picture_size
