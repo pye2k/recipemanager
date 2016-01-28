@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
   before_action :set_recipe
   before_action :require_user, except: [:show]
   before_action :require_different_user, except: [:show]
+  before_action :validate_no_existing_review, except: [:show]
 
   def new
     @review = Review.new
@@ -37,6 +38,14 @@ class ReviewsController < ApplicationController
     def require_different_user
       if current_user == @recipe.chef
         flash[:danger] = "You cannot review your own recipes"
+        redirect_to recipe_path(@recipe)
+      end
+    end
+
+    def validate_no_existing_review
+      @reviews = Review.where(chef: current_user, recipe: @recipe)
+      if @reviews.any?
+        flash[:danger] = "You cannot review a recipe more than once"
         redirect_to recipe_path(@recipe)
       end
     end
