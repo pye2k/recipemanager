@@ -44,4 +44,26 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-8">
+    <h3>Reviews</h3>
+    <%= will_paginate @reviews %>
+    <% @reviews.each do |review| %>
+      <div class="well">
+        <p>
+          <strong><%= link_to review.title, recipe_review_path(@recipe, review) %></strong><br/>
+          <small>By <%= link_to review.chef.chefname, chef_path(review.chef) %> on <%= review.created_at.strftime("%B %d, %Y") %></small>
+        </p>
+        <p>
+          <%= simple_format(review.body) %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if logged_in? %>
+  <h5><%= link_to "Write a new review", new_recipe_review_path(@recipe), class: "btn btn-default btn-small" %></h5>
+<% end %>
+
 <h5><%= link_to "Return to Recipes Listing", recipes_path, class: "btn btn-warning btn-small" %></h5>

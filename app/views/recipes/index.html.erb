@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-lg-6 well">
-      <h4><%= link_to recipe.name, recipe_path(recipe) %></h4>
+      <h4><%= link_to recipe.name, recipe_path(recipe) %> <% if recipe.review_count > 0 %><span class="label label-default"><%= recipe.review_count %> reviews</span><% end %></h4>
       <p><%= recipe.summary %></p>
       <% if recipe.styles.any? %>
         <p>Styles: <%= render recipe.styles %></p>
