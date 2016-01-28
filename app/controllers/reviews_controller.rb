@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  before_action :require_user, except: [:show]
 
   def new
     @review = Review.new
@@ -7,7 +8,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    @review.chef = Chef.first
+    @review.chef = current_user
     @review.recipe_id = params[:recipe_id]
 
     if @review.save
