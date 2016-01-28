@@ -62,6 +62,8 @@
   </div>
 </div>
 
-<h5><%= link_to "Write a new review", new_recipe_review_path(@recipe), class: "btn btn-default btn-small" %></h5>
+<% if logged_in? %>
+  <h5><%= link_to "Write a new review", new_recipe_review_path(@recipe), class: "btn btn-default btn-small" %></h5>
+<% end %>
 
 <h5><%= link_to "Return to Recipes Listing", recipes_path, class: "btn btn-warning btn-small" %></h5>
